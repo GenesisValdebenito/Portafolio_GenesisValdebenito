@@ -1,2 +1,3 @@
-# Portafolio_GenesisValdebenito
-Portafolio personal desarrollado con React, Next.js y Tailwind CSS.
+# Portafolio de Génesis Valdebenito
+
+Portafolio personal desarrollado con React y Vite.
