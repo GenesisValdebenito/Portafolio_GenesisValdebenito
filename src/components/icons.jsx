@@ -55,3 +55,43 @@ export function PhoneIcon() {
     </svg>
   );
 }
+
+export function CodeServiceIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 7L3 12l5 5" />
+      <path d="M16 7l5 5-5 5" />
+      <path d="M14 4l-4 16" />
+    </svg>
+  );
+}
+
+export function ApiServiceIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M7 9h3M7 13h5M15 9h2M15 13h2" />
+      <path d="M7 17h10" />
+    </svg>
+  );
+}
+
+export function AutomationServiceIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4" />
+      <path d="M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8" />
+      <circle cx="12" cy="12" r="4" />
+    </svg>
+  );
+}
+
+export function SupportServiceIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 13a8 8 0 0116 0" />
+      <path d="M4 13v4h4v-5H5M20 13v4h-4v-5h3" />
+      <path d="M8 20h5a3 3 0 003-3" />
+    </svg>
+  );
+}

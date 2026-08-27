@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SiteNav from "../components/SiteNav.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
+import {
+  ApiServiceIcon,
+  AutomationServiceIcon,
+  CodeServiceIcon,
+  SupportServiceIcon,
+} from "../components/icons.jsx";
 import { projects } from "../data/projects.js";
 
 export default function Home() {
@@ -94,35 +100,87 @@ export default function Home() {
 
       <section className="section" id="ltbub">
         <div className="wrap">
-          <div className="studio">
-            <div>
-              <div className="studio-eyebrow">Marca personal</div>
-              <h2>LTBUB Studio</h2>
-              <p>
-                Mi espacio para ofrecer servicios de desarrollo a medida: sitios web,
-                aplicaciones a pequeña escala y soporte técnico fullstack para proyectos
-                personales y de pequeños negocios.
-              </p>
-              <a className="studio-cta" href="https://www.patreon.com/cw/LTBUBStudio" target="_blank" rel="noopener noreferrer">
-                Apoya u ofrece un proyecto en Patreon →
-              </a>
-            </div>
-            <div className="studio-card">
-              <span className="lbl">// SERVICIOS</span>
-              <ul>
-                <li>Desarrollo web fullstack a medida</li>
-                <li>Integración y consumo de APIs</li>
-                <li>Automatizaciones y widgets a pedido</li>
-                <li>Soporte y mejoras sobre proyectos existentes</li>
-              </ul>
-            </div>
-          </div>
+          <StudioSection />
         </div>
       </section>
 
       <SiteFooter />
     </>
   );
+}
+
+function StudioSection() {
+  const studioRef = useRef(null);
+  const [noise, setNoise] = useState(createNoise());
+  const animationFrame = useRef(null);
+
+  const updateLight = (event) => {
+    if (!studioRef.current) return;
+
+    const bounds = studioRef.current.getBoundingClientRect();
+    studioRef.current.style.setProperty("--light-x", `${event.clientX - bounds.left}px`);
+    studioRef.current.style.setProperty("--light-y", `${event.clientY - bounds.top}px`);
+
+    if (!animationFrame.current) {
+      animationFrame.current = requestAnimationFrame(() => {
+        setNoise(createNoise());
+        animationFrame.current = null;
+      });
+    }
+  };
+
+  const clearLight = () => {
+    if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
+    animationFrame.current = null;
+  };
+
+  return (
+    <div
+      className="studio"
+      onPointerLeave={clearLight}
+      onPointerMove={updateLight}
+      ref={studioRef}
+    >
+      <div className="studio-light" aria-hidden="true"><span>{noise}</span></div>
+      <div className="studio-copy">
+        <div className="studio-eyebrow">Marca personal</div>
+        <h2>LTBUB Studio</h2>
+        <p>
+          Mi espacio para ofrecer servicios de desarrollo a medida: sitios web,
+          aplicaciones a pequeña escala y soporte técnico fullstack para proyectos
+          personales y de pequeños negocios.
+        </p>
+        <a className="studio-cta" href="https://www.patreon.com/cw/LTBUBStudio" target="_blank" rel="noopener noreferrer">
+          Apoya u ofrece un proyecto en Patreon →
+        </a>
+      </div>
+      <div className="studio-card">
+        <div className="studio-card-content">
+          <span className="lbl">// SERVICIOS</span>
+          <ul>
+            <ServiceItem Icon={CodeServiceIcon}>Desarrollo web fullstack a medida</ServiceItem>
+            <ServiceItem Icon={ApiServiceIcon}>Integración y consumo de APIs</ServiceItem>
+            <ServiceItem Icon={AutomationServiceIcon}>Automatizaciones y widgets a pedido</ServiceItem>
+            <ServiceItem Icon={SupportServiceIcon}>Soporte y mejoras sobre proyectos existentes</ServiceItem>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ServiceItem({ Icon, children }) {
+  return (
+    <li>
+      <Icon />
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function createNoise() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
+  return Array.from({ length: 2600 }, () => characters[Math.floor(Math.random() * characters.length)]).join("");
 }
 
 function SiteFooter() {

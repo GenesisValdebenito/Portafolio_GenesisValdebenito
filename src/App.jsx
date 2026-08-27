@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import CV from "./pages/CV.jsx";
+import About from "./pages/About.jsx";
 
 export default function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
   useEffect(() => {
     let frameId;
 
@@ -22,8 +25,14 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setShowIntro(false), 2900);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <>
+      {showIntro && <StartupTerminal />}
       <div className="spark-field" aria-hidden="true">
         <span />
         <span />
@@ -34,7 +43,29 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cv" element={<CV />} />
+        <Route path="/sobre-mi" element={<About />} />
       </Routes>
     </>
+  );
+}
+
+function StartupTerminal() {
+  return (
+    <div className="startup-screen" role="status" aria-label="Iniciando portafolio">
+      <div className="startup-terminal">
+        <div className="startup-bar">
+          <span className="terminal-lights"><i /><i /><i /></span>
+          <span>genesis@ltbub: ~/portfolio</span>
+          <span className="startup-time">08:26</span>
+        </div>
+        <div className="startup-body">
+          <p><b>genesis@ltbub:~$</b> ./start-portfolio.sh</p>
+          <p className="startup-muted">Inicializando entorno creativo...</p>
+          <div className="startup-progress"><span /></div>
+          <p className="startup-muted startup-success">[ OK ] Portfolio ready</p>
+          <p className="startup-prompt"><b>genesis@ltbub:~$</b> explore<span className="startup-caret">_</span></p>
+        </div>
+      </div>
+    </div>
   );
 }

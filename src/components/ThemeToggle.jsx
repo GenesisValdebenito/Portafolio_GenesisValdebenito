@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 const themes = [
   { id: "light", label: "Claro" },
   { id: "dark", label: "Oscuro" },
-  { id: "neutral", label: "Neutro" },
 ];
 
 function getInitialTheme() {
-  return localStorage.getItem("ltbub-theme") || "light";
+  const savedTheme = localStorage.getItem("ltbub-theme");
+  return savedTheme === "light" ? "light" : "dark";
 }
 
 export default function ThemeToggle() {
