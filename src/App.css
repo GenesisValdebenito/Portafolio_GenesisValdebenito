@@ -409,7 +409,7 @@ header.hero {
 .portfolio-hero .social-links { position: relative; z-index: 1; }
 .portfolio-hero .social-links a { color: #f2eee5; }
 .portfolio-hero .social-links a:hover { color: var(--gold); }
-}
+
 .portfolio-hero .eyebrow {
   align-self: stretch;
   justify-content: flex-start;
