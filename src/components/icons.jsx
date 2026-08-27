@@ -95,3 +95,12 @@ export function SupportServiceIcon() {
     </svg>
   );
 }
+
+export function FolderIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 7.5A2.5 2.5 0 015.5 5h4l2 2H18.5A2.5 2.5 0 0121 9.5v7A2.5 2.5 0 0118.5 19h-13A2.5 2.5 0 013 16.5z" />
+      <path d="M3 9h18" />
+    </svg>
+  );
+}

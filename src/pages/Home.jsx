@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SiteNav from "../components/SiteNav.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
+import SocialLinks from "../components/SocialLinks.jsx";
 import {
   ApiServiceIcon,
   AutomationServiceIcon,
@@ -8,6 +9,8 @@ import {
   SupportServiceIcon,
 } from "../components/icons.jsx";
 import { projects } from "../data/projects.js";
+
+const HERO_CODE = "01001100 01010100 01000010 01010101 01000010 // build: genesis.valdebenito { api: ready, ui: online, deploy: cloud } ".repeat(24);
 
 export default function Home() {
   const [visibleLength, setVisibleLength] = useState(0);
@@ -47,7 +50,8 @@ export default function Home() {
     <>
       <SiteNav />
 
-      <header className="hero">
+      <header className="hero portfolio-hero">
+        <div className="hero-code-field" aria-hidden="true"><span>{HERO_CODE}</span></div>
         <div className="wrap">
           <div className="eyebrow">Portafolio · 2026</div>
           <h1 className={`name${visibleLength < fullName.length ? " typing" : ""}`} aria-label={fullName}>
@@ -59,20 +63,7 @@ export default function Home() {
             modelo de datos hasta la interfaz, pasando por el despliegue en la nube. Estudiante
             de Ingeniería en Informática en Duoc UC.
           </p>
-          <div className="chiprow">
-            <a className="chip" href="https://github.com/GenesisValdebenito" target="_blank" rel="noopener noreferrer">
-              <span className="dot"></span>github.com/GenesisValdebenito
-            </a>
-            <a className="chip" href="http://www.linkedin.com/in/genesis-valdebenito-quintupil" target="_blank" rel="noopener noreferrer">
-              <span className="dot"></span>LinkedIn
-            </a>
-            <a className="chip" href="mailto:g.valdebenitoquintupil@gmail.com">
-              <span className="dot"></span>g.valdebenitoquintupil@gmail.com
-            </a>
-            <a className="chip" href="https://emprendimiento-creativo.my.canva.site/" target="_blank" rel="noopener noreferrer">
-              <span className="dot"></span>Sitio personal
-            </a>
-          </div>
+          <SocialLinks className="hero-social-links" />
         </div>
       </header>
 
@@ -188,12 +179,7 @@ function SiteFooter() {
     <footer>
       <div className="wrap">
         <span className="mono">Génesis Valdebenito Quintupil · Santiago, Chile</span>
-        <div className="flinks">
-          <a href="https://github.com/GenesisValdebenito" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="http://www.linkedin.com/in/genesis-valdebenito-quintupil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="mailto:g.valdebenitoquintupil@gmail.com">Email</a>
-          <a href="https://www.patreon.com/cw/LTBUBStudio" target="_blank" rel="noopener noreferrer">LTBUB Studio</a>
-        </div>
+        <SocialLinks />
       </div>
     </footer>
   );

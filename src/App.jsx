@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import CV from "./pages/CV.jsx";
-import About from "./pages/About.jsx";
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
+    document.body.classList.remove("booting");
+
     let frameId;
 
     const updatePointer = (event) => {
@@ -26,8 +28,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => setShowIntro(false), 2900);
-    return () => clearTimeout(timeoutId);
+    const contentTimeoutId = setTimeout(() => setShowContent(true), 650);
+    const introTimeoutId = setTimeout(() => setShowIntro(false), 1800);
+
+    return () => {
+      clearTimeout(contentTimeoutId);
+      clearTimeout(introTimeoutId);
+    };
   }, []);
 
   return (
@@ -40,11 +47,12 @@ export default function App() {
         <span />
         <span />
       </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cv" element={<CV />} />
-        <Route path="/sobre-mi" element={<About />} />
-      </Routes>
+      {showContent && (
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cv" element={<CV />} />
+        </Routes>
+      )}
     </>
   );
 }

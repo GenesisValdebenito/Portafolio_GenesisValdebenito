@@ -15,9 +15,6 @@ export default function SiteNav() {
           <NavLink to="/cv" className={({ isActive }) => (isActive ? "active" : "")}>
             CV
           </NavLink>
-          <NavLink to="/sobre-mi" className={({ isActive }) => (isActive ? "active" : "")}>
-            Sobre mí
-          </NavLink>
           <ThemeToggle />
         </div>
       </div>
