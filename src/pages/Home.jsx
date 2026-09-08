@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import SiteNav from "../components/SiteNav.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import SocialLinks from "../components/SocialLinks.jsx";
@@ -9,8 +9,6 @@ import {
   SupportServiceIcon,
 } from "../components/icons.jsx";
 import { projects } from "../data/projects.js";
-
-const HERO_CODE = "01001100 01010100 01000010 01010101 01000010 // build: genesis.valdebenito { api: ready, ui: online, deploy: cloud } ".repeat(24);
 
 export default function Home() {
   const [visibleLength, setVisibleLength] = useState(0);
@@ -51,7 +49,6 @@ export default function Home() {
       <SiteNav />
 
       <header className="hero portfolio-hero">
-        <div className="hero-code-field" aria-hidden="true"><span>{HERO_CODE}</span></div>
         <div className="wrap">
           <div className="eyebrow">Portafolio · 2026</div>
           <h1 className={`name${visibleLength < fullName.length ? " typing" : ""}`} aria-label={fullName}>
@@ -101,53 +98,24 @@ export default function Home() {
 }
 
 function StudioSection() {
-  const studioRef = useRef(null);
-  const [noise, setNoise] = useState(createNoise());
-  const animationFrame = useRef(null);
-
-  const updateLight = (event) => {
-    if (!studioRef.current) return;
-
-    const bounds = studioRef.current.getBoundingClientRect();
-    studioRef.current.style.setProperty("--light-x", `${event.clientX - bounds.left}px`);
-    studioRef.current.style.setProperty("--light-y", `${event.clientY - bounds.top}px`);
-
-    if (!animationFrame.current) {
-      animationFrame.current = requestAnimationFrame(() => {
-        setNoise(createNoise());
-        animationFrame.current = null;
-      });
-    }
-  };
-
-  const clearLight = () => {
-    if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
-    animationFrame.current = null;
-  };
-
   return (
-    <div
-      className="studio"
-      onPointerLeave={clearLight}
-      onPointerMove={updateLight}
-      ref={studioRef}
-    >
-      <div className="studio-light" aria-hidden="true"><span>{noise}</span></div>
+    <div className="studio">
       <div className="studio-copy">
         <div className="studio-eyebrow">Marca personal</div>
         <h2>LTBUB Studio</h2>
+        <div className="studio-manifesto">Design <span>|</span> Technology</div>
         <p>
-          Mi espacio para ofrecer servicios de desarrollo a medida: sitios web,
-          aplicaciones a pequeña escala y soporte técnico fullstack para proyectos
-          personales y de pequeños negocios.
+          Diseño y desarrollo soluciones digitales a medida para ideas que quieren
+          convertirse en proyectos reales.
         </p>
         <a className="studio-cta" href="https://www.patreon.com/cw/LTBUBStudio" target="_blank" rel="noopener noreferrer">
-          Apoya u ofrece un proyecto en Patreon →
+          Hablemos de tu proyecto <span aria-hidden="true">→</span>
         </a>
+        <span className="studio-cta-note">Cuéntame qué necesitas a través de Patreon.</span>
       </div>
       <div className="studio-card">
         <div className="studio-card-content">
-          <span className="lbl">// SERVICIOS</span>
+          <span className="lbl">Servicios</span>
           <ul>
             <ServiceItem Icon={CodeServiceIcon}>Desarrollo web fullstack a medida</ServiceItem>
             <ServiceItem Icon={ApiServiceIcon}>Integración y consumo de APIs</ServiceItem>
@@ -167,11 +135,6 @@ function ServiceItem({ Icon, children }) {
       <span>{children}</span>
     </li>
   );
-}
-
-function createNoise() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
-  return Array.from({ length: 2600 }, () => characters[Math.floor(Math.random() * characters.length)]).join("");
 }
 
 function SiteFooter() {
