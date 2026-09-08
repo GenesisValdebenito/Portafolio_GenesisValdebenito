@@ -2,7 +2,6 @@ const links = [
   { label: "GitHub", href: "https://github.com/GenesisValdebenito", Icon: GitHubIcon, external: true },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/genesis-valdebenito-quintupil", Icon: LinkedInIcon, external: true },
   { label: "Gmail", href: "mailto:g.valdebenitoquintupil@gmail.com", Icon: MailIcon },
-  { label: "Teléfono", href: "tel:+56965117646", Icon: PhoneIcon },
 ];
 
 export default function SocialLinks({ className = "" }) {
